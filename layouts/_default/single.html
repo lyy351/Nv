@@ -1,1 +1,77 @@
 # 人物详情页模板（实现左文右证布局）
+
+{{ define "main" }}
+<div class="two-columns">
+  <!-- 左侧正文 -->
+  <article class="main-content">
+    <header>
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.bio }}
+        <p class="bio">{{ . }}</p>
+      {{ end }}
+      <div class="meta">
+        <span>朝代：{{ .Params.dynasty }}</span>
+        {{ with .Params.field }}
+          <span>领域：{{ delimit . "、" }}</span>
+        {{ end }}
+      </div>
+    </header>
+
+    {{ .Content }}  <!-- 正文和脚注都会渲染在这里 -->
+  </article>
+
+  <!-- 右侧参考文献栏（动态填充） -->
+  <aside class="references" id="references">
+    <h3>参考文献原文</h3>
+    <div id="ref-list"></div>
+  </aside>
+</div>
+
+<!-- JavaScript 实现提取脚注+滚动高亮 -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 获取正文中所有脚注条目（Hugo 渲染后通常为 .footnotes 下的 li）
+    const footnotes = document.querySelectorAll('.footnotes li');
+    const refList = document.getElementById('ref-list');
+    if (!refList) return;
+
+    // 将脚注内容填充到右侧栏
+    footnotes.forEach((fn, idx) => {
+      const refId = fn.id || `fn-${idx+1}`;
+      const refNumber = idx+1;
+      const refDiv = document.createElement('div');
+      refDiv.className = 'ref-item';
+      refDiv.setAttribute('data-ref-id', refId);
+      refDiv.innerHTML = `<sup>${refNumber}</sup> ${fn.innerHTML}`;
+      refList.appendChild(refDiv);
+    });
+
+    // 滚动高亮：当正文中的脚注链接进入视野时，高亮右侧对应条目
+    const supLinks = document.querySelectorAll('.footnote-ref');
+    const refItems = document.querySelectorAll('.ref-item');
+
+    function highlightCurrentRef() {
+      let currentRef = null;
+      // 找出当前视野中最靠上的脚注链接
+      for (let i = 0; i < supLinks.length; i++) {
+        const link = supLinks[i];
+        const rect = link.getBoundingClientRect();
+        if (rect.top < window.innerHeight/2) {
+          currentRef = link.getAttribute('href').substring(1); // 去掉 '#'
+        } else {
+          break;
+        }
+      }
+      // 高亮对应的右侧条目
+      refItems.forEach(item => item.classList.remove('highlight'));
+      if (currentRef) {
+        const targetItem = document.querySelector(`.ref-item[data-ref-id="${currentRef}"]`);
+        if (targetItem) targetItem.classList.add('highlight');
+      }
+    }
+
+    window.addEventListener('scroll', highlightCurrentRef);
+    highlightCurrentRef();
+  });
+</script>
+{{ end }}
