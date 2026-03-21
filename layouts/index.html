@@ -1,2 +1,35 @@
+<!-- 首页（英雄区+最新+随机+专题入口+数据统计 -->
 
- # 首页（英雄区+最新+随机+专题入口+数据统计）
+{{ define "main" }}
+  {{ partial "hero.html" . }}
+
+  <!-- 数据统计：需要从 content 目录计算 -->
+  {{ $totalFigures := 0 }}
+  {{ range .Site.RegularPages }}
+    {{ if eq .Type "reality" }}
+      {{ $totalFigures = add $totalFigures 1 }}
+    {{ else if eq .Type "myth" }}
+      {{ $totalFigures = add $totalFigures 1 }}
+    {{ end }}
+  {{ end }}
+  {{ $totalRegions := len .Site.Taxonomies.categories }}  <!-- 假设用categories标记地域 -->
+  
+  {{ partial "stats.html" (dict "total" $totalFigures "regions" $totalRegions) }}
+
+  <!-- 最新添加：按日期倒序取前6篇 -->
+  {{ $latest := where .Site.RegularPages "Section" "in" (slice "reality" "myth") }}
+  {{ $latest = $latest.ByDate.Reverse | first 6 }}
+  {{ partial "latest.html" (dict "pages" $latest) }}
+
+  <!-- 随机推荐：前端从所有人物列表中随机抽取6-9篇，避开最新 -->
+  {{ $allPages := where .Site.RegularPages "Section" "in" (slice "reality" "myth") }}
+  {{ $latestURLs := slice }}
+  {{ range $latest }}
+    {{ $latestURLs = $latestURLs | append .Permalink }}
+  {{ end }}
+  {{ partial "random.html" (dict "pages" $allPages "exclude" $latestURLs) }}
+
+  <!-- 热门专题入口 -->
+  {{ $topics := .Site.GetPage "section" "topics" }}
+  {{ partial "topics-grid.html" $topics }}
+{{ end }}
