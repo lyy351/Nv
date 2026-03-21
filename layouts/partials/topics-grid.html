@@ -1,1 +1,12 @@
-
+<section class="topics">
+  <h2>专题</h2>
+  <div class="topics-grid">
+    {{ range where .Pages "Section" "topics" }}
+      <a href="{{ .RelPermalink }}" class="topic-card">
+        <div class="icon">{{ .Params.icon | default "📖" }}</div>
+        <h3>{{ .Title }}</h3>
+        <p>{{ .Params.brief }}</p>
+      </a>
+    {{ end }}
+  </div>
+</section>
