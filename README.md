@@ -7,58 +7,63 @@
 我会用树形图展示，并标注每个文件/文件夹的作用。你可以直接在你的电脑上按此结构创建，然后推送到GitHub。
 
 ```
-your-site/                     # 项目根目录（仓库名，如 nv-shi）
-├── config.toml                # Hugo 配置文件（网站标题、主题、菜单等）
-├── content/                   # 所有内容（Markdown文件）放在这里
-│   ├── reality/               # 现实人物（一级分类）
-│   │   ├── china/             # 中国（二级分类）
-│   │   │   ├── ancient/       # 古代
+your-site/
+├── config.toml
+├── content/
+│   ├── reality/               # 现实人物
+│   │   ├── china/
+│   │   │   ├── ancient/
 │   │   │   │   └── wangzhenyi.md
-│   │   │   ├── modern/        # 近现代
+│   │   │   ├── modern/
 │   │   │   │   └── qiujin.md
-│   │   │   └── contemporary/  # 当代
+│   │   │   └── contemporary/
 │   │   │       └── tuyouyou.md
-│   │   ├── asia/              # 亚洲其他
-│   │   ├── europe/            # 欧洲
-│   │   ├── americas/          # 美洲
-│   │   └── africa-oceania/    # 非洲/大洋洲
-│   └── myth/                  # 神话人物（一级分类）
-│       ├── china-myth/        # 中国神话
-│       │   └── xiwangmu.md
-│       ├── greek-myth/        # 希腊神话
-│       └── other-myth/        # 其他神话
-├── layouts/                   # 模板文件（控制页面HTML结构）
-│   ├── _default/              # 默认模板
-│   │   ├── single.html        # 人物详情页模板（实现左文右证布局）
-│   │   ├── list.html          # 分类列表页模板（卡片网格）
-│   │   └── baseof.html        # 基础骨架（可选的，用于继承）
-│   ├── partials/              # 可复用的组件
-│   │   ├── header.html        # 页头（导航、搜索）
-│   │   ├── footer.html        # 页脚
-│   │   ├── sidebar.html       # 侧边栏（标签云、随机推荐等）
-│   │   └── references.html    # 右侧参考文献栏（动态提取）
-│   └── shortcodes/            # 自定义短代码（如果需要）
-│       └── ref.html           # 可选：手动标注引用
-├── static/                    # 静态资源（图片、CSS、JS）
+│   │   ├── asia/
+│   │   ├── europe/
+│   │   ├── americas/
+│   │   └── africa-oceania/
+│   ├── myth/                  # 神话人物
+│   │   ├── china-myth/
+│   │   │   └── xiwangmu.md
+│   │   ├── greek-myth/
+│   │   └── other-myth/
+│   └── topics/                # 专题页面（独立内容）
+│       ├── shanhaijing/       # 《山海经》专题
+│       │   └── index.md       # 专题正文
+│       ├── nobel-women/       # 诺贝尔奖女性专题
+│       │   └── index.md
+│       └── first-women/       # 中国第一人专题
+│           └── index.md
+├── layouts/
+│   ├── _default/
+│   │   ├── baseof.html        # 基础骨架
+│   │   ├── single.html        # 人物详情页（左文右证）
+│   │   └── list.html          # 分类列表页（人物卡片网格）
+│   ├── index.html             # 首页（英雄区+最新+随机+专题入口+数据统计）
+│   ├── topics/                # 专题页专用模板
+│   │   └── single.html        # 专题页模板（引言+特色内容+人物列表+额外资料）
+│   └── partials/              # 可复用组件
+│       ├── header.html
+│       ├── footer.html
+│       ├── hero.html          # 英雄区
+│       ├── latest.html        # 最新添加人物
+│       ├── random.html        # 随机推荐
+│       ├── topics-grid.html   # 热门专题入口
+│       ├── stats.html         # 数据统计
+│       ├── card.html          # 人物卡片（复用）
+│       └── references.html    # 右侧参考文献栏
+├── static/
 │   ├── css/
-│   │   └── custom.css         # 自定义样式（两栏布局、响应式）
+│   │   └── custom.css
 │   ├── js/
-│   │   └── references.js      # 动态高亮、提取脚注的脚本
-│   └── images/                # 按人物分类存放图片
-│       ├── china/
-│       │   ├── ancient/
-│       │   │   └── wangzhenyi/
-│       │   │       ├── portrait.jpg
-│       │   │       └── manuscript.jpg
-│       │   └── modern/
-│       └── myth/
-├── themes/                    # 主题文件夹（如果使用现成主题）
-│   └── your-theme/            # 比如你选的主题（可忽略，若自己写模板）
-├── .gitignore                 # Git忽略文件（如 public/、.hugo_build.lock）
-├── README.md                  # 项目说明
-└── .github/                   # （可选）GitHub Actions 自动部署配置
-    └── workflows/
-        └── hugo.yml           # 自动构建并部署到 GitHub Pages
+│   │   ├── references.js      # 脚注高亮
+│   │   ├── random.js          # 随机推荐逻辑（前端实现）
+│   │   └── d3.js              # 关系网络可视化（可选）
+│   └── images/
+├── data/                      # 可选：存放统计数据（如人物总数）
+│   └── stats.json
+└── .github/workflows/
+    └── hugo.yml
 ```
 
 ---
