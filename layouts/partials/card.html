@@ -1,1 +1,16 @@
-
+<div class="card">
+  {{ if .Params.image }}
+    <img src="{{ .Params.image }}" alt="{{ .Title }}">
+  {{ else }}
+    <div class="placeholder"></div>
+  {{ end }}
+  <div class="info">
+    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+    <p class="bio">{{ .Params.bio | truncate 100 }}</p>
+    <div class="tags">
+      {{ range .Params.tags }}
+        <span class="tag">{{ . }}</span>
+      {{ end }}
+    </div>
+  </div>
+</div>
