@@ -1,1 +1,81 @@
 # 自定义样式（两栏布局、响应式）
+
+/* 两栏布局 */
+.two-columns {
+  display: flex;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.main-content {
+  flex: 2;
+}
+.references {
+  flex: 1;
+  background: #f8f9fa;
+  padding: 1rem;
+  border-left: 1px solid #dee2e6;
+  position: sticky;
+  top: 2rem;
+  align-self: start;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+}
+.ref-item {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  transition: background 0.2s;
+  font-size: 0.9rem;
+}
+.ref-item.highlight {
+  background: #fff3cd;
+  border-left: 3px solid #ffc107;
+}
+.ref-item sup {
+  color: #0d6efd;
+  margin-right: 0.3rem;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .two-columns {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  .references {
+    position: static;
+    border-left: none;
+    border-top: 1px solid #dee2e6;
+    margin-top: 2rem;
+    max-height: none;
+  }
+}
+
+/* 正文样式 */
+.main-content h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.main-content .bio {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+.main-content .meta {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 0.5rem;
+}
+.footnotes {
+  margin-top: 2rem;
+  border-top: 1px solid #e9ecef;
+  padding-top: 1rem;
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+.footnotes li {
+  margin-bottom: 0.5rem;
+}
