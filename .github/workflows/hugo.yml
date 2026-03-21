@@ -1,10 +1,8 @@
-# 自动构建并部署到 GitHub Pages
-
 name: Deploy Hugo site to Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main"]          # 如果你的默认分支是 master，改为 master
   workflow_dispatch:
 
 permissions:
@@ -27,7 +25,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.125.0'  # 可改为你使用的版本
+          hugo-version: '0.125.0'   # 可改为你本地使用的版本
       - name: Build
         run: hugo --minify
       - name: Upload artifact
