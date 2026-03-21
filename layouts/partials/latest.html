@@ -1,1 +1,8 @@
-
+<section class="latest">
+  <h2>最新添加</h2>
+  <div class="person-grid">
+    {{ range .pages }}
+      {{ partial "card.html" . }}
+    {{ end }}
+  </div>
+</section>
