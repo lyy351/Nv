@@ -16,3 +16,21 @@ resources:
     url: "https://example.com"
     description: "明清山海经绘图本"
 ---
+
+
+<div id="relationship-graph"></div>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+// 定义节点和边
+const nodes = [
+  { id: "女娲", group: 1 },
+  { id: "西王母", group: 1 },
+  { id: "昆仑", group: 2 },
+  { id: "瑶姬", group: 3 }
+];
+const links = [
+  { source: "女娲", target: "西王母", relation: "并称上古女神" },
+  { source: "西王母", target: "昆仑", relation: "居所" }
+];
+// 使用 d3 绘制简单关系图
+</script>
