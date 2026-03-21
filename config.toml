@@ -1,9 +1,9 @@
 # Hugo 配置文件（网站标题、主题、菜单等）
 
-baseURL = 'https://你的用户名.github.io/nv-shi/'
+baseURL = 'https://lyy351.github.io/Nv/'
 languageCode = 'zh-cn'
 title = '女史 · 千古风流'
-theme = 'your-theme'  # 如果不用主题，可留空或自己写模板
+theme = ''  # 如果不用主题，可留空或自己写模板
 
 # 菜单配置（顶部导航）
 [[menu.main]]
